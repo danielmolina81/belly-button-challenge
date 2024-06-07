@@ -45,11 +45,14 @@ function buildCharts(sample) {
       mode: 'markers',
       marker: {
         color: otu_ids,
+        colorscale: 'Jet',
         size: sample_values
       },
       text: otu_labels
     };
+
     let databubble = [tracebubble];
+
     let layoutbubble = {
       title: 'Bacteria Cultures Per Sample',
       xaxis:{
@@ -65,6 +68,7 @@ function buildCharts(sample) {
         b: 100
       }
     };
+
     // Render the Bubble Chart
     Plotly.newPlot("bubble", databubble, layoutbubble);
 
@@ -77,6 +81,7 @@ function buildCharts(sample) {
     // Don't forget to slice and reverse the input data appropriately
     let sortedbar = sample_values.map((value, index) => ({value, id: ysticks[index], label: otu_labels[index]}))
     .sort((a, b) => b.value - a.value);
+
     let slicedbar = sortedbar.slice(0, 10).reverse();
 
     let tracebar = {
@@ -86,7 +91,9 @@ function buildCharts(sample) {
       type: 'bar',
       orientation: "h"
     };
+
     let databar = [tracebar];
+
     let layoutbar = {
       title: "Top 10 Bateria Cultures Found",
       xaxis:{
@@ -102,6 +109,7 @@ function buildCharts(sample) {
         b: 100
       }
     };
+    
     // Render the Bar Chart
     Plotly.newPlot("bar", databar, layoutbar);
   });
