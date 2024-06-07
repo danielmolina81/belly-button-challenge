@@ -39,11 +39,34 @@ function buildCharts(sample) {
     let sample_values = filtered_sample.sample_values;
 
     // Build a Bubble Chart
-
-
-
+    let tracebubble = {
+      x: otu_ids,
+      y: sample_values,
+      mode: 'markers',
+      marker: {
+        color: otu_ids,
+        size: sample_values
+      },
+      text: otu_labels
+    };
+    let databubble = [tracebubble];
+    let layoutbubble = {
+      title: 'Bacteria Cultures Per Sample',
+      xaxis:{
+        title: "OTU ID"
+      },
+      yaxis:{
+        title: "Number of Bacteria"
+      },
+      margin: {
+        l: 100,
+        r: 100,
+        t: 100,
+        b: 100
+      }
+    };
     // Render the Bubble Chart
-    // Plotly.newPlot("bubble", databubble, layoutbubble);
+    Plotly.newPlot("bubble", databubble, layoutbubble);
 
     // For the Bar Chart, map the otu_ids to a list of strings for your yticks
     let ysticks = otu_ids.map(function (item) {
@@ -70,7 +93,7 @@ function buildCharts(sample) {
         title: "Number of Bacteria"
       },
       yaxis:{
-        title: "Bacteria ID"
+        title: "OTU ID"
       },
       margin: {
         l: 100,
@@ -107,8 +130,6 @@ function init() {
     // Build charts and metadata panel with the first sample
     buildMetadata(first_sample);
     buildCharts(first_sample);
-
-
   });
 }
 
